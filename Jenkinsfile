@@ -7,8 +7,9 @@ node {
         stage('Test') {
             sh './jenkins/scripts/test.sh'
         }
-        
+
         stage('Deploy') {
             sh './jenkins/scripts/deploy.sh'
+        }
     }
 }
