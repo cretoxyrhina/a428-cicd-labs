@@ -1,5 +1,5 @@
 node {
-    docker.image('node:16-buster-slim').inside('-p 3000:3000') {
+docker.image('node:16-buster-slim').inside('-p 3000:3000') {
         stage('Build') {
             sh 'npm install'
         }
@@ -8,9 +8,13 @@ node {
             sh './jenkins/scripts/test.sh'
         }
 
+        stage('Confirm') {
+            input message: 'Lanjutkan ke tahap Deploy?'
+        }
+
         stage('Deploy') {
             sh './jenkins/scripts/deliver.sh'
-            input message: 'Sudah selesai menggunakan React App? (Klik "Proceed" untuk mengakhiri)'
+            sleep(time: 1, unit: 'MINUTES')
             sh './jenkins/scripts/kill.sh'
         }
     }
